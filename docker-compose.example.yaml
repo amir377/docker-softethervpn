@@ -12,10 +12,10 @@ services:
       - "4500:4500/udp"
       - "82:82/tcp"
     environment:
-      - PSK=${VPN_PSK}
-      - USERS=${VPN_USERS}
-      - SPW=${VPN_SERVER_PASSWORD}
-      - HPW=${VPN_HUB_PASSWORD}
+      PSK: ${VPN_PSK}
+      USERS: ${VPN_USERS}
+      SPW: ${VPN_SERVER_PASSWORD}
+      HPW: ${VPN_HUB_PASSWORD}
     restart: always
     volumes:
       - softether-openvpn-data:/usr/vpnserver
