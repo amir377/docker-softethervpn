@@ -1,0 +1,31 @@
+services:
+  softether-openvpn:
+    image: siomiz/softethervpn
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - "1194:1194/udp"
+      - "1194:1194/tcp"
+      - "443:443/tcp"
+      - "5555:5555/tcp"
+      - "992:992/tcp"
+      - "500:500/udp"
+      - "4500:4500/udp"
+      - "82:82/tcp"
+    environment:
+      - PSK=${VPN_PSK}
+      - USERS=${VPN_USERS}
+      - SPW=${VPN_SERVER_PASSWORD}
+      - HPW=${VPN_HUB_PASSWORD}
+    restart: always
+    volumes:
+      - softether-openvpn-data:/usr/vpnserver
+    networks:
+      - ${NETWORK_NAME}
+
+volumes:
+  softether-openvpn-data:
+    driver: local
+
+networks:
+  ${NETWORK_NAME}:
+    external: true
