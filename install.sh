@@ -4,7 +4,11 @@ prompt_user() {
     local prompt_text="$1"
     local default_value="$2"
     read -p "$prompt_text (Default: $default_value): " input
-    echo "${input:-$default_value}"
+    if [ -z "$input" ]; then
+        echo "$default_value"
+    else
+        echo "$input"
+    fi
 }
 
 # Prompt user for VPN setup
@@ -41,7 +45,7 @@ fi
 
 # Create Docker network
 echo "Creating Docker network $network_name if not exists..."
-docker network create $network_name || echo "Network already exists."
+docker network create "$network_name" || echo "Network already exists."
 
 # Generate docker-compose.yaml
 if [ -f "docker-compose.example.yaml" ]; then
